@@ -1,0 +1,13 @@
+*.txt
+Release/*
+Debug/*
+__Exec/*
+__bin__/*
+*.exe
+*.ncb
+*.opt
+*.sln
+*.plg
+*.suo
+*.dsp
+*.dsw

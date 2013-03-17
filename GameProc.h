@@ -1,0 +1,118 @@
+// GameProc.h: interface for the GameProc class.
+//
+//////////////////////////////////////////////////////////////////////
+
+#if !defined(AFX_GAMEPROC_H__5F71E7E8_88EB_4CC9_B4CA_159FD2D597DD__INCLUDED_)
+#define AFX_GAMEPROC_H__5F71E7E8_88EB_4CC9_B4CA_159FD2D597DD__INCLUDED_
+
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+
+
+
+namespace VampireIvo {
+
+#ifdef _DEBUG
+#define DBG(msg)				LogMessage(msg)
+#else
+#define DBG(msg)
+#endif
+
+#define LOG(msg)				LogMessage(msg)
+#define _PI						3.141592f
+#define _PI_2					1.570796f
+#define MAGENTA					0xff00ff
+#define MAGENTA_565				0xF81F		
+#define MAGENTA_555				0x7C1F
+
+#define DEFAULT_RESPAWN_TIME_MIN    1850U
+#define DEFAULT_RESPAWN_TIME_MAX    2250U
+#define MAX_ENEMIES_BEFORE_DEATH    20
+#define DEFAULT_VAMP_MIN_SPEED		80.0f
+#define DEFAULT_VAMP_MAX_SPEED		120.0f
+#define DEFAULT_TIME_TO_LIVE		60000U		// time to survive
+
+struct __player
+{
+	int hits;
+	int shots;
+	int score;
+};
+
+
+struct __mouse
+{
+	enum
+	{
+		BUTTON_UNPRESSED = 0,
+		BUTTON_DOWN,
+		BUTTON_UP
+	};
+		
+	int x, y;
+	Uint8 left;
+	Uint8 right;
+};
+
+struct __sound
+{
+	FSOUND_SAMPLE   *sound;
+	bool			buffered;				// bufferiran li shte e zvukyt 
+	int				play_channel;			// ne-bufferiran zvuk se nujdae ot otdelen kanal
+	bool			loaded;
+	
+	void Release();
+
+};
+
+// sounds
+enum
+{
+	SND_AAH = 0,
+	SND_SHOOT,
+	SND_LAST
+};
+
+// gamestates
+enum 
+{
+	GS_MAINMENU = 0,
+	GS_GAMEPLAY,
+	GS_WIN,
+	GS_GAMEOVER
+};
+
+
+//--- game functions
+bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen = false );
+void FreeGame();
+void StartGameLoop();
+void UpdateFrame();
+void ResetGame();
+
+//--- logging
+bool OpenLog();
+void LogMessage( const string &msg );
+
+//--- graphics
+void MakeBoolMask( SDL_Surface *surf, int *&mask, int back_color ); 
+int Collide( SDL_Rect *r1, int *mask1, SDL_Rect *r2, int *mask2 ); // pixel perfect
+int ClipRect( int *x , int *y, SDL_Rect *rSurf );
+void SetRect( SDL_Rect *rect, int x, int y, int width, int height );
+
+//--- physics
+int Collide( SDL_Rect *r_result, SDL_Rect *r1, SDL_Rect *r2 );
+int intGetRnd( int min_val, int max_val );
+float fGetRnd( float min_val, float max_val );
+Uint16 GetDistance( int x1, int y1, int x2, int y2 );
+float  fGetDistance( float x1, float y1, float x2, float y2 );
+
+//--- sound 
+int LoadSound( char *filename, bool buffered_sound );
+void PlaySound( int snd_index, int position = -1 );
+
+} // end namespace
+
+
+#endif // !defined(AFX_GAMEPROC_H__5F71E7E8_88EB_4CC9_B4CA_159FD2D597DD__INCLUDED_)
