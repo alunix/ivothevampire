@@ -37,8 +37,9 @@ THE SOFTWARE.
 
 using namespace std;
 
-#include "SDL/Sdl.h"
-#include "fmod/fmod.h"
-#include "fmod/fmod_errors.h"
+#include "SDL/SDL.h"
+#ifdef WITH_SDLMIXER
+#	include "SDL_mixer.h"
+#endif
 
 #endif

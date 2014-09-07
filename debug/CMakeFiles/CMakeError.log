@@ -1,0 +1,57 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3536497682/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3536497682.dir/build.make CMakeFiles/cmTryCompileExec3536497682.dir/build
+make[1]: Entering directory '/home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3536497682.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3536497682.dir/CheckSymbolExists.c.o   -c /home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec3536497682
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3536497682.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3536497682.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3536497682 -rdynamic 
+CMakeFiles/cmTryCompileExec3536497682.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec3536497682.dir/build.make:88: recipe for target 'cmTryCompileExec3536497682' failed
+make[1]: *** [cmTryCompileExec3536497682] Error 1
+make[1]: Leaving directory '/home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp'
+Makefile:118: recipe for target 'cmTryCompileExec3536497682/fast' failed
+make: *** [cmTryCompileExec3536497682/fast] Error 2
+
+File /home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec182068572/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec182068572.dir/build.make CMakeFiles/cmTryCompileExec182068572.dir/build
+make[1]: Entering directory '/home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec182068572.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec182068572.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.0/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec182068572
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec182068572.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec182068572.dir/CheckFunctionExists.c.o  -o cmTryCompileExec182068572 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec182068572.dir/build.make:88: recipe for target 'cmTryCompileExec182068572' failed
+make[1]: *** [cmTryCompileExec182068572] Error 1
+make[1]: Leaving directory '/home/necroleak/developer/incubator/ivothevampire/debug/CMakeFiles/CMakeTmp'
+Makefile:118: recipe for target 'cmTryCompileExec182068572/fast' failed
+make: *** [cmTryCompileExec182068572/fast] Error 2
+
+

@@ -79,7 +79,9 @@ struct __mouse
 
 struct __sound
 {
+#ifdef WITH_SDLMIXER	
 	FSOUND_SAMPLE   *sound;
+#endif	
 	bool			buffered;				// bufferiran li shte e zvukyt 
 	int				play_channel;			// ne-bufferiran zvuk se nujdae ot otdelen kanal
 	bool			loaded;
