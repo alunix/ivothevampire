@@ -606,7 +606,7 @@ bool OpenLog()
  
     if ( !g_LogOpened )
     {
-        g_LogStream.open( "iv_log.txt", ios::out );
+        g_LogStream.open( "vampire_ivo.log", ios::out );
         if ( g_LogStream.fail() )
             return g_LogOpened = false;
 

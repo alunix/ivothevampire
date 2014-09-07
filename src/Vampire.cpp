@@ -191,7 +191,7 @@ void CVampires::Update( SDL_Surface *pScreen, float *mpf )
 				{
 					// remove from list
 					it = find( it_begin, it_end, pv );
-					if ( it != NULL )
+					if ( it != it_end )
 					{
 						m_vampires.erase( it );
 						delete pv->m_panimFly;
@@ -300,7 +300,7 @@ void CVampires::Update( SDL_Surface *pScreen, float *mpf )
 		{
 			// remove from list
 			it = find( it_begin, it_end, pv );
-			if ( it != NULL )
+			if ( it != it_end )
 			{
 				m_vampires.erase( it );
 				delete pv->m_panimFly;

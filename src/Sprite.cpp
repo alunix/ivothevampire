@@ -100,7 +100,7 @@ CSprite::CSprite( char **lpszFilePaths, int num_frames, int color_key, bool bMak
 		if ( m_bMask )
 		{
 			sprintf( buf, "Creating bool Mask for - %s", lpszFilePaths[i] );
-			VampireIvo::DBG( string(buf) );
+			DBG( string(buf) );
 			VampireIvo::MakeBoolMask( m_pImages[i], m_pMask[i], VampireIvo::g_magenta );
 		}
 		

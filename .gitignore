@@ -1,4 +1,5 @@
 *.txt
+*.log
 __Exec/*
 *.exe
 .netrc
