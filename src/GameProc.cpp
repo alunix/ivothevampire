@@ -177,25 +177,26 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
     g_pFont = new CFont( "gfx/font.bmp", 16, 16, 0x00000000 );
 
     //----- init gfx
-    char *szSplash[255] = { "gfx/splash.bmp" };
+    const char *szSplash[255] = { "gfx/splash.bmp" };
     g_pSplash = new CSprite( szSplash, 1 );
 
-    char *szTop[255] = { "gfx/top.bmp" };
+    const char *szTop[255] = { "gfx/top.bmp" };
     g_pTop = new CSprite( szTop, 1 );
-    char *szBottom[255] = { "gfx/bottom.bmp" };
+    
+    const char *szBottom[255] = { "gfx/bottom.bmp" };
     g_pBottom = new CSprite( szBottom, 1 );
 
-    char *szBackground[255] = { "gfx/backg.bmp" };
+    const char *szBackground[255] = { "gfx/backg.bmp" };
     g_pbackground = new CSprite( szBackground, 1 );
 
-    char *szMouseCursor[255] = { "gfx/mernik.bmp" };
+    const char *szMouseCursor[255] = { "gfx/mernik.bmp" };
     g_pMouse = new CSprite( szMouseCursor, 1, MAGENTA, true );
 
     // load vampire sprites
-    char *szVampAnim[255] = { "gfx/ivo0.bmp", "gfx/ivo1.bmp", "gfx/ivo2.bmp"};
+    const char *szVampAnim[255] = { "gfx/ivo0.bmp", "gfx/ivo1.bmp", "gfx/ivo2.bmp"};
     g_vampire_fly = new CSprite( szVampAnim, 3, MAGENTA, true );
 
-    char *szVampDie[255] = { "gfx/ivodown.bmp" };
+    const char *szVampDie[255] = { "gfx/ivodown.bmp" };
     g_vampire_die = new CSprite( szVampDie, 1, MAGENTA );
 
     // load sounds
@@ -552,7 +553,7 @@ void UpdateFrame()
         
         if ( GS_GAMEOVER == g_GameState )
         {
-            g_pFont->BlitText( 240, 300, "GAME OVER YOU SUCKER", g_pScreen );
+            g_pFont->BlitText( 240, 300, (char *)"GAME OVER YOU SUCKER", g_pScreen );
 
             // print stats
             sprintf( buf, "KILLS: %d", g_player.hits );
@@ -565,7 +566,7 @@ void UpdateFrame()
         }
         else if ( GS_WIN == g_GameState )
         {
-            g_pFont->BlitText( 304, 300, "YOU WIN MASTER", g_pScreen );
+            g_pFont->BlitText( 304, 300, (char *)"YOU WIN MASTER", g_pScreen );
             // print stats
             sprintf( buf, "KILLS: %d", g_player.hits );
             g_pFont->BlitText( 300, 300 + g_pFont->getHeihgt() * 2, buf, g_pScreen );
@@ -850,7 +851,7 @@ float  fGetDistance( float x1, float y1, float x2, float y2 )
 //------------------------ SOUND FUNCTIONS
 
 
-int LoadSound( char *filename, bool buffered_sound )
+int LoadSound( const char *filename, bool buffered_sound )
 {
 #ifdef WITH_SDLMIXER    
 

@@ -30,7 +30,7 @@ THE SOFTWARE.
 class CFont  
 {
 public:
-    CFont( char *szFontFile, int char_width, int char_height, int color_key = -1 );
+    CFont( const char *szFontFile, int char_width, int char_height, int color_key = -1 );
     virtual ~CFont();
 
     void BlitText( int x, int y, char *szText, SDL_Surface *pScreen );

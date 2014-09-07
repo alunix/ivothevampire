@@ -127,7 +127,7 @@ Uint16 GetDistance( int x1, int y1, int x2, int y2 );
 float  fGetDistance( float x1, float y1, float x2, float y2 );
 
 //--- sound 
-int LoadSound( char *filename, bool buffered_sound );
+int LoadSound( const char *filename, bool buffered_sound );
 void PlaySound( int snd_index, int position = -1 );
 
 } // end namespace

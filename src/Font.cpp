@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "GameProc.h"
 
 
-CFont::CFont( char *szFontFile, int char_width, int char_height, int color_key )
+CFont::CFont( const char *szFontFile, int char_width, int char_height, int color_key )
 {
 
 

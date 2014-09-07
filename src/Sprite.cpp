@@ -34,7 +34,7 @@ namespace VampireIvo {
 extern int g_magenta;
 
 
-CSprite::CSprite( char **lpszFilePaths, int num_frames, int color_key, bool bMakeMask )
+CSprite::CSprite( const char **lpszFilePaths, int num_frames, int color_key, bool bMakeMask )
 {
     char buf[255];
 
