@@ -1,8 +1,9 @@
 *.txt
 *.log
-__Exec/*
 *.exe
 .netrc
 debug/
+__Exec/
+_bin/*
 
 Config.h
