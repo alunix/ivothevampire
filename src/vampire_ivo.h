@@ -24,9 +24,8 @@ THE SOFTWARE.
 
 */
 
-#pragma once
-#ifndef __VAMPIRE_IVO_H
-#define __VAMPIRE_IVO_H
+#ifndef __VAMPIRE_IVO_H__
+#define __VAMPIRE_IVO_H__
 
 #include <cmath>
 #include <iostream>
@@ -42,4 +41,4 @@ using namespace std;
 #   include "SDL_mixer.h"
 #endif
 
-#endif
+#endif // __VAMPIRE_IVO_H__

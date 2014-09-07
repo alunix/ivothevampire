@@ -27,14 +27,7 @@ THE SOFTWARE.
 #if !defined(AFX_SPRITE_H__D8351040_15CC_44FD_AB01_2E4B42B02E42__INCLUDED_)
 #define AFX_SPRITE_H__D8351040_15CC_44FD_AB01_2E4B42B02E42__INCLUDED_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-
 namespace VampireIvo {
-
-
 
 class CSprite  
 {
