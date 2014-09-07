@@ -39,7 +39,7 @@ using namespace std;
 
 #include "SDL/SDL.h"
 #ifdef WITH_SDLMIXER
-#	include "SDL_mixer.h"
+#   include "SDL_mixer.h"
 #endif
 
 #endif

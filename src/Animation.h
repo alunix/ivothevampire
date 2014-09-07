@@ -39,21 +39,21 @@ class CSprite;
 class CAnimation  
 {
 public:
-	CAnimation( CSprite *pSprite, float animspeed );
-	virtual ~CAnimation();
+    CAnimation( CSprite *pSprite, float animspeed );
+    virtual ~CAnimation();
 
-	void Update( int x, int y, SDL_Surface *pScreen, float *mpf );
+    void Update( int x, int y, SDL_Surface *pScreen, float *mpf );
 
-	int getWidth();
-	int getHeight();
-	int* getMask();
+    int getWidth();
+    int getHeight();
+    int* getMask();
 
 private:
-	float m_curframe;
-	float m_animspeed;
-	int m_numframes;
+    float m_curframe;
+    float m_animspeed;
+    int m_numframes;
 
-	CSprite *m_pSprite;
+    CSprite *m_pSprite;
 
 };
 

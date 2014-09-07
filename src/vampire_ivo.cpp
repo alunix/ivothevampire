@@ -47,14 +47,14 @@ THE SOFTWARE.
 int main(int argc, char* argv[])
 {
 
-	if (!VampireIvo::InitGame(800, 600, 16, true)) {
-		return -1;
-	}
+    if (!VampireIvo::InitGame(800, 600, 16, true)) {
+        return -1;
+    }
 
-	VampireIvo::StartGameLoop();
-	
-	VampireIvo::FreeGame();
-	
-	return 0;
+    VampireIvo::StartGameLoop();
+    
+    VampireIvo::FreeGame();
+    
+    return 0;
 }
 

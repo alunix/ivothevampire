@@ -34,19 +34,19 @@ THE SOFTWARE.
 class CFont  
 {
 public:
-	CFont( char *szFontFile, int char_width, int char_height, int color_key = -1 );
-	virtual ~CFont();
+    CFont( char *szFontFile, int char_width, int char_height, int color_key = -1 );
+    virtual ~CFont();
 
-	void BlitText( int x, int y, char *szText, SDL_Surface *pScreen );
-	void Destroy();
+    void BlitText( int x, int y, char *szText, SDL_Surface *pScreen );
+    void Destroy();
 
-	int getWidth() { return m_charWidth; };
-	int getHeihgt() { return m_charHeight; };
+    int getWidth() { return m_charWidth; };
+    int getHeihgt() { return m_charHeight; };
 
 private:
-	SDL_Surface *m_pImage;
-	int m_imgWidth, m_imgHeight;
-	int m_charWidth, m_charHeight;	// golemina na bukvite
+    SDL_Surface *m_pImage;
+    int m_imgWidth, m_imgHeight;
+    int m_charWidth, m_charHeight;  // golemina na bukvite
 
 };
 

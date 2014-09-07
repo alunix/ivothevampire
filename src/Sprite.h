@@ -39,29 +39,29 @@ namespace VampireIvo {
 class CSprite  
 {
 public:
-	CSprite( char **lpszFilePaths, int num_frames, int color_key = -1, bool bMakeMask = false );
-	virtual ~CSprite();
+    CSprite( char **lpszFilePaths, int num_frames, int color_key = -1, bool bMakeMask = false );
+    virtual ~CSprite();
 
-	void Update( int x, int y, int curframe, SDL_Surface *pScreen );
-	void Destroy();
+    void Update( int x, int y, int curframe, SDL_Surface *pScreen );
+    void Destroy();
 
-	int getWidth() { return m_pWidths[m_curframe]; };
-	int getHeight() { return m_pHeights[m_curframe]; };
-	int getFrames() { return m_numframes; };
-	int* getMask();
-	SDL_Surface* getSDL_Surface() { return m_pImages[m_curframe]; };
+    int getWidth() { return m_pWidths[m_curframe]; };
+    int getHeight() { return m_pHeights[m_curframe]; };
+    int getFrames() { return m_numframes; };
+    int* getMask();
+    SDL_Surface* getSDL_Surface() { return m_pImages[m_curframe]; };
 
 private:
 
-	SDL_Surface **m_pImages;
-	int **m_pMask;
-	int m_numframes;
-	int m_curframe;
-	bool m_bMask;
+    SDL_Surface **m_pImages;
+    int **m_pMask;
+    int m_numframes;
+    int m_curframe;
+    bool m_bMask;
 
 
-	int *m_pWidths, 
-		*m_pHeights;
+    int *m_pWidths, 
+        *m_pHeights;
 
 };
 

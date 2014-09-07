@@ -36,75 +36,75 @@ THE SOFTWARE.
 namespace VampireIvo {
 
 #ifdef _DEBUG
-#define DBG(msg)				LogMessage(msg)
+#define DBG(msg)                LogMessage(msg)
 #else
 #define DBG(msg)
 #endif
 
-#define LOG(msg)				LogMessage(msg)
-#define _PI						3.141592f
-#define _PI_2					1.570796f
-#define MAGENTA					0xff00ff
-#define MAGENTA_565				0xF81F		
-#define MAGENTA_555				0x7C1F
+#define LOG(msg)                LogMessage(msg)
+#define _PI                     3.141592f
+#define _PI_2                   1.570796f
+#define MAGENTA                 0xff00ff
+#define MAGENTA_565             0xF81F      
+#define MAGENTA_555             0x7C1F
 
 #define DEFAULT_RESPAWN_TIME_MIN    1850U
 #define DEFAULT_RESPAWN_TIME_MAX    2250U
 #define MAX_ENEMIES_BEFORE_DEATH    20
-#define DEFAULT_VAMP_MIN_SPEED		80.0f
-#define DEFAULT_VAMP_MAX_SPEED		120.0f
-#define DEFAULT_TIME_TO_LIVE		60000U		// time to survive
+#define DEFAULT_VAMP_MIN_SPEED      80.0f
+#define DEFAULT_VAMP_MAX_SPEED      120.0f
+#define DEFAULT_TIME_TO_LIVE        60000U      // time to survive
 
 struct __player
 {
-	int hits;
-	int shots;
-	int score;
+    int hits;
+    int shots;
+    int score;
 };
 
 
 struct __mouse
 {
-	enum
-	{
-		BUTTON_UNPRESSED = 0,
-		BUTTON_DOWN,
-		BUTTON_UP
-	};
-		
-	int x, y;
-	Uint8 left;
-	Uint8 right;
+    enum
+    {
+        BUTTON_UNPRESSED = 0,
+        BUTTON_DOWN,
+        BUTTON_UP
+    };
+        
+    int x, y;
+    Uint8 left;
+    Uint8 right;
 };
 
 struct __sound
 {
-#ifdef WITH_SDLMIXER	
-	FSOUND_SAMPLE   *sound;
-#endif	
-	bool			buffered;				// bufferiran li shte e zvukyt 
-	int				play_channel;			// ne-bufferiran zvuk se nujdae ot otdelen kanal
-	bool			loaded;
-	
-	void Release();
+#ifdef WITH_SDLMIXER    
+    FSOUND_SAMPLE   *sound;
+#endif  
+    bool            buffered;               // bufferiran li shte e zvukyt 
+    int             play_channel;           // ne-bufferiran zvuk se nujdae ot otdelen kanal
+    bool            loaded;
+    
+    void Release();
 
 };
 
 // sounds
 enum
 {
-	SND_AAH = 0,
-	SND_SHOOT,
-	SND_LAST
+    SND_AAH = 0,
+    SND_SHOOT,
+    SND_LAST
 };
 
 // gamestates
 enum 
 {
-	GS_MAINMENU = 0,
-	GS_GAMEPLAY,
-	GS_WIN,
-	GS_GAMEOVER
+    GS_MAINMENU = 0,
+    GS_GAMEPLAY,
+    GS_WIN,
+    GS_GAMEOVER
 };
 
 
