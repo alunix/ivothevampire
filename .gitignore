@@ -4,3 +4,5 @@ __Exec/*
 *.exe
 .netrc
 debug/
+
+Config.h
