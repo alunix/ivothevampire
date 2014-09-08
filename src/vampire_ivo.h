@@ -42,4 +42,6 @@ using namespace std;
 #   include "SDL_mixer.h"
 #endif
 
+#include "Config.h"
+
 #endif // __VAMPIRE_IVO_H__

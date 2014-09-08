@@ -625,14 +625,13 @@ void UpdateFrame()
 
 bool OpenLog()
 {
- 
     if ( !g_LogOpened )
     {
         g_LogStream.open( "vampire_ivo.log", ios::out );
         if ( g_LogStream.fail() )
             return g_LogOpened = false;
 
-        g_LogStream << "Vampire Ivo 1.0 --- Log File ";
+        g_LogStream << "Vampire Ivo " << VER_MAJ << "." << VER_MIN << " --- Log File ";
         g_LogOpened = true;
     }
 
