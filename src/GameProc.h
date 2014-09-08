@@ -74,7 +74,7 @@ struct __mouse
 struct __sound
 {
 #ifdef WITH_SDLMIXER    
-    FSOUND_SAMPLE   *sound;
+    Mix_Chunk       *sound;
 #endif  
     bool            buffered;               // bufferiran li shte e zvukyt 
     int             play_channel;           // ne-bufferiran zvuk se nujdae ot otdelen kanal
@@ -125,6 +125,8 @@ int intGetRnd( int min_val, int max_val );
 float fGetRnd( float min_val, float max_val );
 Uint16 GetDistance( int x1, int y1, int x2, int y2 );
 float  fGetDistance( float x1, float y1, float x2, float y2 );
+float fRangeGetXY(float in, float inMin, float inMax, float min, float max);
+int RangeGetXY(int in, int inMin, int inMax, int min, int max);
 
 //--- sound 
 int LoadSound( const char *filename, bool buffered_sound );

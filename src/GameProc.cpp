@@ -75,7 +75,7 @@ CSprite       *g_pTop = NULL, *g_pBottom = NULL;
 __sound       sounds[SND_LAST];
 bool          g_bMusic = false;
 #ifdef WITH_SDLMIXER
-FMUSIC_MODULE *music = NULL;
+Mix_Music     *music = NULL;
 #endif
 
 
@@ -127,8 +127,10 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
         else
             g_magenta = MAGENTA_555;
     }
-    else
+    else 
+    {
         g_magenta = 0x00ff00ff;
+    }
 
     if ( NULL == g_pScreen )
     {
@@ -142,34 +144,64 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
 
 #ifdef WITH_SDLMIXER
 
-    // try to init FMOD for sounds
-    if ( FSOUND_GetVersion() < FMOD_VERSION )
+    LOG("Initializing SDL_mixer ..." );
+
+    string strLog;
+
+    if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
     {
-        char buf[255];
-        sprintf( buf, "FMod Error: You are using the wrong DLL version!  You should be using FMOD: %d", FMOD_VERSION );
-        LOG( buf );
-        g_soundinitialized = false;
+        strLog = string("SDL Error: ...failed to open SDL_INIT_AUDIO:  ");
+        strLog.append(SDL_GetError());
+        LOG(strLog);
+        // XXX Should we continue?
+    }
+
+    int flags_required = MIX_INIT_MOD;
+    int flags_supported = Mix_Init(flags_required);
+
+    if(flags_supported & flags_required != flags_required) {
+        strLog.clear();
+        strLog.append("SDL_mixer failed to initialize! Game will start without sound.");
+        strLog.append("SDL_mixer error: ");
+        strLog.append(SDL_GetError());
+        LOG(strLog);
     }
     else
     {
+        int mixrate = getenv("SW_SND_22KHZ")
+                && !strncmp(getenv("SW_SND_22KHZ"), "1", 1) ? 22050 : 44100;
 
-        if( !FSOUND_Init(44100, 32, FSOUND_INIT_USEDEFAULTMIDISYNTH) )
-        {
-            string strErr("FMod Error: ...failed to initialize :");
-            strErr.append( FMOD_ErrorString(FSOUND_GetError()) );
-            LOG( strErr );
-            g_soundinitialized = false;
+        /* initialize sdl mixer, open up the audio device */
+        if (Mix_OpenAudio(mixrate, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
+            strLog.clear();
+            strLog.append("SDL_mixer failed to initialize!.");
+            strLog.append("SDL_mixer error: ");
+            strLog.append(SDL_GetError());
+            LOG(strLog);
         }
+        else
+        {
+            // Get specs information
+            int audio_rate;
+            int audio_channels;
+            Uint16 audio_format;
 
-        g_soundinitialized = true;
+            if (0 != Mix_QuerySpec(&audio_rate, &audio_format, &audio_channels)) {
+                int bits = audio_format & 0xFF;
+                int sample_size = bits / 8 + audio_channels;
+                int rate = audio_rate;
 
-        char buf[255];
-        sprintf( buf, "FMod Driver: %s freq:%d channels:%d", FSOUND_GetDriverName( FSOUND_GetDriver() ),
-            FSOUND_GetOutputRate(), FSOUND_GetMaxChannels() );
-        LOG( buf );
+                stringstream ss;
+                ss << "SDL_mixer: Opened audio at " << audio_rate << " Hz " << bits << " bit " 
+                    << (audio_channels > 1 ? "stereo" : "mono");
+                LOG(ss.str());
+            }
+
+            LOG("SDL_mixer initialized successfully.");
+
+            g_soundinitialized = true;
+        }
     }
-     
-    LOG( "FMod Status: Opened successfully" );
 
 #endif
 
@@ -204,14 +236,14 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
     LoadSound( "sfx/Machine_Gun2.wav", true );
 
 #ifdef WITH_SDLMIXER
-    if ( (music = FMUSIC_LoadSong( "sfx/39.mid" )) == NULL )
-    {
-        LOG( "Failed to load sound - sfx/39.mid" );
-        g_bMusic = false;
-    }
-    else {
-        g_bMusic = true;
-    }
+    // if ( (music = FMUSIC_LoadSong( "sfx/39.mid" )) == NULL )
+    // {
+    //     LOG( "Failed to load sound - sfx/39.mid" );
+    //     g_bMusic = false;
+    // }
+    // else {
+    //     g_bMusic = true;
+    // }
 #endif
 
     return (g_bRunning = true);
@@ -254,11 +286,12 @@ void FreeGame()
             sounds[i].Release();
         }
 
-        if ( g_bMusic )
-            FMUSIC_FreeSong( music );
+        // if ( g_bMusic ) {
+        //     FMUSIC_FreeSong( music );
+        // }
 
-        FSOUND_Close();
-        LOG("FMod: closed.");
+        Mix_Quit();
+        LOG("SDL_mixer closed.");
     }
 #endif
 
@@ -296,11 +329,11 @@ void StartGameLoop()
 
     // play music
 #ifdef WITH_SDLMIXER
-    if ( g_bMusic )
-    {
-        FMUSIC_SetLooping( music, true );
-        FMUSIC_PlaySong( music );
-    }
+    // if ( g_bMusic )
+    // {
+    //     FMUSIC_SetLooping( music, true );
+    //     FMUSIC_PlaySong( music );
+    // }
 #endif
 
     while( g_bRunning )
@@ -348,16 +381,16 @@ void StartGameLoop()
                 else if ( event.key.keysym.sym == SDLK_s )
                 {
 #ifdef WITH_SDLMIXER                    
-                    if ( g_bMusic)
-                    {
-                        if ( FMUSIC_IsPlaying(music) )
-                            FMUSIC_StopSong( music );
-                        else
-                        {
-                            FMUSIC_SetLooping( music, true );
-                            FMUSIC_PlaySong( music );
-                        }
-                    }
+                    // if ( g_bMusic)
+                    // {
+                    //     if ( FMUSIC_IsPlaying(music) )
+                    //         FMUSIC_StopSong( music );
+                    //     else
+                    //     {
+                    //         FMUSIC_SetLooping( music, true );
+                    //         FMUSIC_PlaySong( music );
+                    //     }
+                    // }
 #endif                    
                 } //end KEY_s
             }
@@ -490,12 +523,12 @@ void StartGameLoop()
                 ResetGame();
 
 #ifdef WITH_SDLMIXER
-                if ( FMUSIC_IsPlaying(music) )
-                {
-                    FMUSIC_StopSong( music );
-                    FMUSIC_SetLooping( music, true );
-                    FMUSIC_PlaySong( music );
-                }
+                // if ( FMUSIC_IsPlaying(music) )
+                // {
+                //     FMUSIC_StopSong( music );
+                //     FMUSIC_SetLooping( music, true );
+                //     FMUSIC_PlaySong( music );
+                // }
 #endif                
             }
             
@@ -847,6 +880,19 @@ float  fGetDistance( float x1, float y1, float x2, float y2 )
     return (float)sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) );
 }
 
+float fRangeGetXY(float in, float inMin, float inMax, float min, float max)
+{
+    float inRange = (inMax - inMin);
+    float newRange = (max - min);
+    float result = (((in - inMin) * newRange) / inRange) + min;
+
+    return result;
+}
+
+int RangeGetXY(int in, int inMin, int inMax, int min, int max)
+{
+    return (int)fRangeGetXY((float)in, (float)inMin, (float)inMax, (float)min, (float)max);
+}
 
 //------------------------ SOUND FUNCTIONS
 
@@ -872,12 +918,15 @@ int LoadSound( const char *filename, bool buffered_sound )
             strBuf.append( filename );
             LOG( strBuf );
 
-            ptr_snd->sound = FSOUND_Sample_Load(FSOUND_UNMANAGED, filename, FSOUND_NORMAL, 0 );  //Mix_LoadWAV( filename ); //LoadWav( filename, 0, 55000 ); 
-            if ( ptr_snd == NULL )
-            {
-                string strErr("...failed to load sound file : ");
-                strErr.append( filename );
-                LOG( strErr );
+            ptr_snd->sound = Mix_LoadWAV(filename);
+            if (!ptr_snd->sound) {
+                stringstream ss;
+                ss << "...failed to load sound file : " << filename;
+                ss << "SDL_mixer error: " << Mix_GetError();
+                LOG(ss.str());
+                // string strErr("...failed to load sound file : ");
+                // strErr.append( filename );
+                // LOG( strErr );                
                 return -1;
             }
             
@@ -887,8 +936,10 @@ int LoadSound( const char *filename, bool buffered_sound )
                 ptr_snd->play_channel = cur_channel;
                 cur_channel++;
             }
-            else
+            else 
+            {
                 ptr_snd->buffered = true;
+            }
             
             ptr_snd->loaded = true;
             
@@ -899,6 +950,12 @@ int LoadSound( const char *filename, bool buffered_sound )
         i++;
         ptr_snd++;
     }
+
+    if ( !bsnd_loaded )
+    {
+        LOG("Sound load error: No slots available!");
+        return -1;
+    }    
 #endif
 }
 
@@ -906,66 +963,33 @@ int LoadSound( const char *filename, bool buffered_sound )
 void PlaySound( int snd_index, int position )
 {
 #ifdef WITH_SDLMIXER
-     //return;  // {!}
-    int chn;
-
-    if ( !g_soundinitialized ) return;
-
-
-    // izchisli posiciqta na zvuka
+    Uint8 left_pos = 127;
+    Uint8 right_pos = 127;
     if ( position != -1 )
     {
-
-        if ( position > 320 )
-        {
-            position = 128 + 0.1f * (float)position;
-            
-            if ( position > 205 )
-                position = 205;
-        }
-        else
-        {
-            position = 0.1f * (float)position;
-            if ( position < 50 ) 
-                position = 50;
-
-        }
-             
+        right_pos = (Uint8)fRangeGetXY(position, 0, 800, 0.0f, 255.0);
+        left_pos = 255 - right_pos;
     }
-    else
-        position = FSOUND_STEREOPAN;
 
-
-    // play sound...
-    if ( sounds[snd_index].buffered )
-    {
-        // nameri svoboden kanal i pusni zvuka
-        for ( Uint8 i = 0; i < 255; i++ )
-        {
-            if ( !FSOUND_IsPlaying( i ) )
-            {
-                chn = FSOUND_PlaySound( i, sounds[snd_index].sound );
-                FSOUND_SetPan( chn , position );
-                break;
-            }
+//  if ( sounds[snd_index].buffered ) {
+        int channel = Mix_PlayChannel(-1, sounds[snd_index].sound, 0);
+        if (position != -1) {
+            Mix_SetPanning(channel, left_pos, right_pos);
         }
-    }
-    else
-    {
-        // pusni prez nebuferiraniq kanal
-        //FSOUND_StopSound( sounds[snd_index].play_channel );
-        chn = FSOUND_PlaySound( sounds[snd_index].play_channel, sounds[snd_index].sound );
-        FSOUND_SetPan( chn, position );     
-
-    }
+//  }
+//  else
+//  {
+//      Mix_HaltChannel( sounds[snd_index].play_channel );
+//      Mix_PlayChannel( sounds[snd_index].play_channel, sounds[snd_index].sound, 0 );
+//  }
 #endif
 }
 
 
 void __sound::Release()
 {
-#ifdef WITH_SDLMIXER    
-    FSOUND_Sample_Free( sound );
+#ifdef WITH_SDLMIXER
+    Mix_FreeChunk(sound);
 #endif    
 }
 
