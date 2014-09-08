@@ -249,8 +249,6 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
     return (g_bRunning = true);
 }
 
-
-
 void FreeGame()
 {
     LOG( ("Releasing game...") );
@@ -301,8 +299,6 @@ void FreeGame()
     g_LogStream.close();
 }
 
-
-
 void ResetGame()
 {
     // reset game stuff
@@ -314,7 +310,6 @@ void ResetGame()
     g_vampire_min_speed = DEFAULT_VAMP_MIN_SPEED;
     g_vampire_max_speed = DEFAULT_VAMP_MAX_SPEED;
 }
-
 
 void StartGameLoop()
 {
@@ -540,16 +535,12 @@ void StartGameLoop()
         // update graphics frame
         UpdateFrame();
     }
-    
 
 }
-
-
 
 void UpdateFrame()
 {
     char buf[255];
-
 
     switch( g_GameState )
     {
@@ -629,11 +620,8 @@ void UpdateFrame()
         g_pFont->BlitText( 5, g_screenheight - 15, buf, g_pScreen );
     }
 
-
-
     SDL_Flip( g_pScreen );
 }
-
 
 bool OpenLog()
 {
@@ -659,7 +647,6 @@ void LogMessage( const string &msg )
         g_LogStream.flush();
     }
 }
-
 
 int Collide( SDL_Rect *r_result, SDL_Rect *r1, SDL_Rect *r2 )
 {
@@ -701,7 +688,6 @@ int Collide( SDL_Rect *r_result, SDL_Rect *r1, SDL_Rect *r2 )
     return 0;
 }
 
-
 int ClipRect( int *x , int *y, SDL_Rect *rSurf )
 {
 
@@ -731,7 +717,6 @@ int ClipRect( int *x , int *y, SDL_Rect *rSurf )
     
     return false;
 }
-
 
 void SetRect( SDL_Rect *rect, int x, int y, int width, int height )
 {
@@ -785,7 +770,6 @@ void MakeBoolMask( SDL_Surface *surf, int *&mask, int back_color )
         SDL_UnlockSurface( surf );
     }
 }
-
 
 int Collide( SDL_Rect *r1, int *mask1, SDL_Rect *r2, int *mask2 )
 {
@@ -852,8 +836,6 @@ int Collide( SDL_Rect *r1, int *mask1, SDL_Rect *r2, int *mask2 )
     return 0;
 }
 
-
-
 int intGetRnd( int min_val, int max_val )
 {
     int range = max_val - min_val;
@@ -861,19 +843,16 @@ int intGetRnd( int min_val, int max_val )
     return ( num + min_val );
 }
 
-
 float fGetRnd( float min_val, float max_val )
 {
     return ( ( max_val - min_val ) * (float)rand()/(float)RAND_MAX ) + min_val;
 }
-
 
 Uint16  GetDistance( int x1, int y1, int x2, int y2 )
 {
     //return (Uint16)sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) );
     return 0;
 }
-
 
 float  fGetDistance( float x1, float y1, float x2, float y2 )
 {
@@ -959,7 +938,6 @@ int LoadSound( const char *filename, bool buffered_sound )
 #endif
 }
 
-
 void PlaySound( int snd_index, int position )
 {
 #ifdef WITH_SDLMIXER
@@ -984,7 +962,6 @@ void PlaySound( int snd_index, int position )
 //  }
 #endif
 }
-
 
 void __sound::Release()
 {
