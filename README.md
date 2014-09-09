@@ -3,6 +3,9 @@ Ivo The Vampire
 
 2D Shoot 'Em Up game using SDL & C/C++
 
+![alt text](http://i.imgur.com/ZUwPZPr.png "Title screen")
+
+
 # Installation
 
 Just extract the `vampire_ivo-1.x.x-<Platform>.tar.gz` package and run the binary.
