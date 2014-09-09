@@ -45,7 +45,14 @@ THE SOFTWARE.
 
 int main(int argc, char* argv[])
 {
-    if (!VampireIvo::InitGame(800, 600, 16, true)) {
+
+#ifdef LINUX_BUILD
+  setenv("SDL_VIDEO_CENTERED", "1", 1);
+#else
+  _putenv("SDL_VIDEO_CENTERED=1");
+#endif
+  
+    if (!VampireIvo::InitGame(800, 600, 16, false)) {
         return -1;
     }
 
