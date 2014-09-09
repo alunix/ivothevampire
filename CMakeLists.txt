@@ -25,8 +25,6 @@ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 ### sources
 include_directories(src/)
-include_directories(tinyxml/)
-
 set(
     SOURCES 
     src/Animation.cpp
@@ -57,8 +55,6 @@ endif()
 ## libstdc runtime on Windows
 if (WIN32)
     # Static linkage of the gcc libs
-    #add_definitions(-static-libgcc)
-    #add_definitions(-static-libstdc++)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
 endif()
 
@@ -74,7 +70,7 @@ else()
     set(SDL_LIB_NAME "SDL.dll")
     
     add_definitions(-lpthread)
-    include_directories(${SDL_INCLUDE_DIR})
+    include_directories($ENV{SDLDIR}\\include ${SDL_INCLUDE_DIR})
     link_directories($ENV{SDLDIR}\\lib)
     set(SDL_LIBRARY_SO $ENV{SDLDIR}\\bin\\SDL.dll)
     
@@ -110,6 +106,8 @@ else()
                 ENV SDLMIXERDIR
                 ENV SDLDIR
             PATH_SUFFIXES lib)
+
+        include_directories($ENV{SDLMIXERDIR} ${SDL_INCLUDE_DIR})
             
         if (NOT SDL_MIXER_MIKMOD_LIBRARY)
             message(STATUS "SDL_mixer libmikmod-2 dependency was NOT FOUND! Game will run WITHOUT music.")
@@ -121,7 +119,7 @@ endif()
 
 ### link required libraries
 
-target_link_libraries(vampire_ivo ${SDL_LIBRARY} ${FMOD_LIBRARY} ${SDLMIXER_LIBRARY})
+target_link_libraries(vampire_ivo ${SDL_LIBRARY} ${SDLMIXER_LIBRARY})
 
 ### additional defines
 
