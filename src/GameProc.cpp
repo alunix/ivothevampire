@@ -907,9 +907,6 @@ int LoadSound(const string soundFilePath, bool buffered_sound)
                 ss << "...failed to load sound file : " << soundFilePath;
                 ss << "SDL_mixer error: " << Mix_GetError();
                 LOG(ss.str());
-                // string strErr("...failed to load sound file : ");
-                // strErr.append( filename );
-                // LOG( strErr );                
                 return -1;
             }
             

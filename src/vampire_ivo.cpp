@@ -26,27 +26,25 @@ THE SOFTWARE.
 
 /*
 
-  "Vampire Ivo" - shoot'em up game
+  "Ivo the Vampire" - shoot'em up game
 
   greetings from the Pi-Conuslt.bg team - 03.2005
 
 
   beta release: 21.03.2005
   final release: ??.03.2005
+  edited release: Sep.2014
 
   code: Petar Petrov
   gfx & sfx: Valentin Bojilov
 
 */
 
-
 #include "vampire_ivo.h"
 #include "GameProc.h"
 
-
 int main(int argc, char* argv[])
 {
-
     if (!VampireIvo::InitGame(800, 600, 16, true)) {
         return -1;
     }
@@ -57,4 +55,3 @@ int main(int argc, char* argv[])
     
     return 0;
 }
-
