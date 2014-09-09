@@ -47,6 +47,8 @@ On the command line:
 
     > mkdir build && cd build
 
+  * Set the `SDLDIR` and `SDLMIXER` environment variables.
+
   * Run CMake
 
     > cmake -G "MinGW Makefiles" ../ -DCMAKE_BUILD_TYPE:STRING=Release
