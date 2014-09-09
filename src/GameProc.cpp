@@ -205,35 +205,42 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
 
 #endif
 
+    string strAssetsPath;
+    char *env_assets_path = getenv("VAMPIREIVO_ASSETS");
+    if (env_assets_path != NULL) 
+    {
+        strAssetsPath = string(env_assets_path);
+    }    
+
     //----- init font
-    g_pFont = new CFont( "gfx/font.bmp", 16, 16, 0x00000000 );
+    g_pFont = new CFont(string(strAssetsPath) + "gfx/font.bmp", 16, 16, 0x00000000);
 
     //----- init gfx
     const char *szSplash[255] = { "gfx/splash.bmp" };
-    g_pSplash = new CSprite( szSplash, 1 );
+    g_pSplash = new CSprite(strAssetsPath, szSplash, 1);
 
     const char *szTop[255] = { "gfx/top.bmp" };
-    g_pTop = new CSprite( szTop, 1 );
+    g_pTop = new CSprite(strAssetsPath, szTop, 1);
     
     const char *szBottom[255] = { "gfx/bottom.bmp" };
-    g_pBottom = new CSprite( szBottom, 1 );
+    g_pBottom = new CSprite(strAssetsPath, szBottom, 1 );
 
     const char *szBackground[255] = { "gfx/backg.bmp" };
-    g_pbackground = new CSprite( szBackground, 1 );
+    g_pbackground = new CSprite(strAssetsPath, szBackground, 1);
 
     const char *szMouseCursor[255] = { "gfx/mernik.bmp" };
-    g_pMouse = new CSprite( szMouseCursor, 1, MAGENTA, true );
+    g_pMouse = new CSprite(strAssetsPath, szMouseCursor, 1, MAGENTA, true);
 
     // load vampire sprites
     const char *szVampAnim[255] = { "gfx/ivo0.bmp", "gfx/ivo1.bmp", "gfx/ivo2.bmp"};
-    g_vampire_fly = new CSprite( szVampAnim, 3, MAGENTA, true );
+    g_vampire_fly = new CSprite(strAssetsPath, szVampAnim, 3, MAGENTA, true);
 
     const char *szVampDie[255] = { "gfx/ivodown.bmp" };
-    g_vampire_die = new CSprite( szVampDie, 1, MAGENTA );
+    g_vampire_die = new CSprite(strAssetsPath, szVampDie, 1, MAGENTA);
 
     // load sounds
-    LoadSound( "sfx/AHH_02.wav", true );
-    LoadSound( "sfx/Machine_Gun2.wav", true );
+    LoadSound(string(strAssetsPath) + "sfx/AHH_02.wav", true);
+    LoadSound(string(strAssetsPath) + "sfx/Machine_Gun2.wav", true);
 
 #ifdef WITH_SDLMIXER
     // if ( (music = FMUSIC_LoadSong( "sfx/39.mid" )) == NULL )
@@ -875,7 +882,7 @@ int RangeGetXY(int in, int inMin, int inMax, int min, int max)
 //------------------------ SOUND FUNCTIONS
 
 
-int LoadSound( const char *filename, bool buffered_sound )
+int LoadSound(const string soundFilePath, bool buffered_sound)
 {
 #ifdef WITH_SDLMIXER    
 
@@ -892,14 +899,12 @@ int LoadSound( const char *filename, bool buffered_sound )
     {
         if ( !ptr_snd->loaded )
         {
-            string strBuf("Loading sound - ");
-            strBuf.append( filename );
-            LOG( strBuf );
+            LOG("Loading sound - " + soundFilePath);
 
-            ptr_snd->sound = Mix_LoadWAV(filename);
+            ptr_snd->sound = Mix_LoadWAV(soundFilePath.c_str());
             if (!ptr_snd->sound) {
                 stringstream ss;
-                ss << "...failed to load sound file : " << filename;
+                ss << "...failed to load sound file : " << soundFilePath;
                 ss << "SDL_mixer error: " << Mix_GetError();
                 LOG(ss.str());
                 // string strErr("...failed to load sound file : ");

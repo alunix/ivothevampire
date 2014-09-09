@@ -32,7 +32,8 @@ namespace VampireIvo {
 class CSprite  
 {
 public:
-    CSprite( const char **lpszFilePaths, int num_frames, int color_key = -1, bool bMakeMask = false );
+    CSprite(const string assetsPath, const char **lpszFilePaths, int num_frames, 
+        int color_key = -1, bool bMakeMask = false);
     virtual ~CSprite();
 
     void Update( int x, int y, int curframe, SDL_Surface *pScreen );

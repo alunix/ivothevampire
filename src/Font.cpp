@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "GameProc.h"
 
 
-CFont::CFont( const char *szFontFile, int char_width, int char_height, int color_key )
+CFont::CFont(const string strFontFile, int char_width, int char_height, int color_key)
 {
 
 
@@ -39,9 +39,9 @@ CFont::CFont( const char *szFontFile, int char_width, int char_height, int color
     m_charWidth = char_width;
     m_charHeight = char_height;
 
-    if ( (pTemp = SDL_LoadBMP( szFontFile ) ) == NULL )
+    if ( (pTemp = SDL_LoadBMP( strFontFile.c_str() ) ) == NULL )
     {
-        sprintf( buf, "Failed to load font - %s", szFontFile );
+        sprintf( buf, "Failed to load font - %s", strFontFile.c_str() );
         VampireIvo::LOG( string(buf) );
         return;
     }
@@ -60,7 +60,7 @@ CFont::CFont( const char *szFontFile, int char_width, int char_height, int color
 
     m_pImage = SDL_DisplayFormat( pTemp );
 
-    sprintf( buf, "Loaded font - %s", szFontFile );
+    sprintf( buf, "Loaded font - %s", strFontFile.c_str() );
     VampireIvo::LOG( string(buf) );
 }
 
@@ -77,7 +77,7 @@ void CFont::Destroy()
 }
 
 
-void CFont::BlitText( int x, int y, char *szText, SDL_Surface *pScreen )
+void CFont::BlitText(int x, int y, char *szText, SDL_Surface *pScreen)
 {
 
     char *p = szText;
@@ -151,9 +151,6 @@ void CFont::BlitText( int x, int y, char *szText, SDL_Surface *pScreen )
             bBlit = false;
         }
 
-
         p++;
     }
-
-
 }

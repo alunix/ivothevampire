@@ -34,7 +34,7 @@ namespace VampireIvo {
 extern int g_magenta;
 
 
-CSprite::CSprite( const char **lpszFilePaths, int num_frames, int color_key, bool bMakeMask )
+CSprite::CSprite(const string assetsPath, const char **lpszFilePaths, int num_frames, int color_key, bool bMakeMask)
 {
     char buf[255];
 
@@ -63,18 +63,19 @@ CSprite::CSprite( const char **lpszFilePaths, int num_frames, int color_key, boo
         return;
     }
 
-
     m_pWidths = new int[num_frames];
     m_pHeights = new int[num_frames];
-
 
     for( int i = 0; i < m_numframes; i++ )
     {
         SDL_Surface *pTemp;
 
-        if ( (pTemp = SDL_LoadBMP( lpszFilePaths[i] ) ) == NULL )
+        string asset(assetsPath);
+        asset.append(lpszFilePaths[i]);
+
+        if ( (pTemp = SDL_LoadBMP( asset.c_str() ) ) == NULL )
         {
-            sprintf( buf, "Failed to load image - %s", lpszFilePaths[i] );
+            sprintf( buf, "Failed to load image - %s", asset.c_str() );
             VampireIvo::LOG( string(buf) );
             return;
         }
@@ -95,15 +96,13 @@ CSprite::CSprite( const char **lpszFilePaths, int num_frames, int color_key, boo
         //  create mask for surface
         if ( m_bMask )
         {
-            sprintf( buf, "Creating bool Mask for - %s", lpszFilePaths[i] );
+            sprintf( buf, "Creating bool Mask for - %s", asset.c_str() );
             DBG( string(buf) );
             VampireIvo::MakeBoolMask( m_pImages[i], m_pMask[i], VampireIvo::g_magenta );
         }
         
-        sprintf( buf, "Loaded image - %s", lpszFilePaths[i] );
+        sprintf( buf, "Loaded image - %s", asset.c_str() );
         VampireIvo::LOG( string(buf) );
-
-        
     }
 
     VampireIvo::LOG( "Loading sprite...OK!" );

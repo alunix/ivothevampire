@@ -111,7 +111,7 @@ void ResetGame();
 
 //--- logging
 bool OpenLog();
-void LogMessage( const string &msg );
+void LogMessage(const string &msg);
 
 //--- graphics
 void MakeBoolMask( SDL_Surface *surf, int *&mask, int back_color ); 
@@ -129,7 +129,7 @@ float fRangeGetXY(float in, float inMin, float inMax, float min, float max);
 int RangeGetXY(int in, int inMin, int inMax, int min, int max);
 
 //--- sound 
-int LoadSound( const char *filename, bool buffered_sound );
+int LoadSound(const string soundFilePath, bool buffered_sound );
 void PlaySound( int snd_index, int position = -1 );
 
 } // end namespace
