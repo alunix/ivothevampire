@@ -143,13 +143,12 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
 
     LOG("Initializing SDL_mixer ..." );
 
-    string strLog;
+    stringstream ss;
 
     if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
     {
-        strLog = string("SDL Error: ...failed to open SDL_INIT_AUDIO:  ");
-        strLog.append(SDL_GetError());
-        LOG(strLog);
+        ss << "SDL Error: ...failed to open SDL_INIT_AUDIO:  " << SDL_GetError();
+        LOG(ss.str());
         // XXX Should we continue?
     }
 
@@ -157,11 +156,10 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
     int flags_supported = Mix_Init(flags_required);
 
     if(flags_supported & flags_required != flags_required) {
-        strLog.clear();
-        strLog.append("SDL_mixer failed to initialize! Game will start without sound.");
-        strLog.append("SDL_mixer error: ");
-        strLog.append(SDL_GetError());
-        LOG(strLog);
+        ss.str("");
+        ss << "SDL_mixer failed to initialize! Game will start without sound."
+            << "SDL_mixer error: " << SDL_GetError();
+        LOG(ss.str());
     }
     else
     {
@@ -170,11 +168,10 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
 
         /* initialize sdl mixer, open up the audio device */
         if (Mix_OpenAudio(mixrate, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
-            strLog.clear();
-            strLog.append("SDL_mixer failed to initialize!.");
-            strLog.append("SDL_mixer error: ");
-            strLog.append(SDL_GetError());
-            LOG(strLog);
+            ss.str("");
+            ss << "SDL_mixer failed to initialize!."
+                << "SDL_mixer error: " << SDL_GetError();
+            LOG(ss.str());
         }
         else
         {
@@ -188,7 +185,7 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
                 int sample_size = bits / 8 + audio_channels;
                 int rate = audio_rate;
 
-                stringstream ss;
+                ss.str("");
                 ss << "SDL_mixer: Opened audio at " << audio_rate << " Hz " << bits << " bit " 
                     << (audio_channels > 1 ? "stereo" : "mono");
                 LOG(ss.str());
