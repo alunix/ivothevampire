@@ -61,7 +61,6 @@ endif()
 ## SDL
 if (UNIX AND NOT WIN32)
     # Linux
-    
     add_definitions(`sdl-config --cflags`)
     add_definitions(`sdl-config --libs`)    
 else()
@@ -104,15 +103,28 @@ else()
             NAMES libmikmod-2
             HINTS
                 ENV SDLMIXERDIR
-                ENV SDLDIR
             PATH_SUFFIXES lib)
-
-        include_directories($ENV{SDLMIXERDIR} ${SDL_INCLUDE_DIR})
             
         if (NOT SDL_MIXER_MIKMOD_LIBRARY)
             message(STATUS "SDL_mixer libmikmod-2 dependency was NOT FOUND! Game will run WITHOUT music.")
+        else()
+            include_directories($ENV{SDLMIXERDIR})
+
+            set(SDLMIXER_LIBRARY_SO $ENV{SDLMIXERDIR}\\SDL_mixer.dll)
+
+            # copy the SDL_Mixer DLL file to the install dir
+            add_custom_command(TARGET vampire_ivo POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+                ${SDL_MIXER_MIKMOD_LIBRARY}
+                $<TARGET_FILE_DIR:vampire_ivo>)
+
+            add_custom_command(TARGET vampire_ivo POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+                ${SDLMIXER_LIBRARY_SO}
+                $<TARGET_FILE_DIR:vampire_ivo>)               
         endif()
         
+        INSTALL(FILES "${SDLMIXER_LIBRARY_SO}" DESTINATION ${INSTALL_DIR}) 
         INSTALL(FILES "${SDL_MIXER_MIKMOD_LIBRARY}" DESTINATION ${INSTALL_DIR}) 
     endif()
 endif()
