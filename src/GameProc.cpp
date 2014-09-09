@@ -107,16 +107,20 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
     g_screenwidth = screen_width;
     g_screenheight = screen_height;
 
+    Uint32 flags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_ANYFORMAT;
+
     //----- init SDL
     if ( bFullscreen )
     {
-        g_pScreen = SDL_SetVideoMode( screen_width, screen_height, bpp, 
-            SDL_SWSURFACE | SDL_DOUBLEBUF | SDL_ANYFORMAT |  SDL_FULLSCREEN ); 
+        flags |= SDL_FULLSCREEN;
     }
-    else
+
+    g_pScreen = SDL_SetVideoMode(screen_width, screen_height, bpp, flags);    
+    if ( NULL == g_pScreen )
     {
-        g_pScreen = SDL_SetVideoMode( screen_width, screen_height, bpp, 
-            SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_ANYFORMAT );
+        LOG( "Error intializing SDL video screen!" );
+        fprintf (stderr, "Error intializing video screen!");
+        return false;
     }
 
     // 16bit-mode-check
@@ -130,14 +134,7 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
     else 
     {
         g_magenta = 0x00ff00ff;
-    }
-
-    if ( NULL == g_pScreen )
-    {
-        LOG( "Error intializing SDL video screen!" );
-        fprintf (stderr, "Error intializing video screen!");
-        return false;
-    }
+    }    
 
     // hide cursor
     SDL_ShowCursor( SDL_DISABLE );
