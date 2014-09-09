@@ -2,6 +2,7 @@
 *.log
 *.exe
 .netrc
+lib/*
 debug/
 __Exec/
 _bin/*

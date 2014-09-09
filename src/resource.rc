@@ -47,7 +47,7 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "Pi-Consult.bg\0"
             VALUE "FileDescription", "vampire_ivo\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "FileVersion", "1, 1, 0, 1\0"
             VALUE "InternalName", "vampire_ivo\0"
             VALUE "LegalCopyright", "Copyright © 2005\0"
             VALUE "LegalTrademarks", "\0"
