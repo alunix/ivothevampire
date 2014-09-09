@@ -23,19 +23,19 @@ On the command line:
 
   * Create a build folder
 
-    $ mkdir build && cd build
+    mkdir build && cd build
 
   * Run CMake
 
-    $ cmake -G "Unix Makefiles" ../ -DCMAKE_BUILD_TYPE:STRING=Release
+    cmake -G "Unix Makefiles" ../ -DCMAKE_BUILD_TYPE:STRING=Release
 
   * Build with:
 
-    $ make
+    make
 
   * Create an installation package with:
 
-    $ cmake
+    cmake
 
 ## Windows
 
@@ -45,21 +45,21 @@ On the command line:
 
   * Create a build folder
 
-    > mkdir build && cd build
+    mkdir build && cd build
 
   * Set the `SDLDIR` and `SDLMIXER` environment variables.
 
   * Run CMake
 
-    > cmake -G "MinGW Makefiles" ../ -DCMAKE_BUILD_TYPE:STRING=Release
+    cmake -G "MinGW Makefiles" ../ -DCMAKE_BUILD_TYPE:STRING=Release
 
   * Build with:
 
-    > mingw32-make
+    mingw32-make
 
   * Create an installation package with:
 
-    > cpack
+    cpack
 
 ## Disable Sound
 
