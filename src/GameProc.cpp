@@ -200,7 +200,7 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
 #endif
 
     string strAssetsPath;
-    char *env_assets_path = getenv("VAMPIREIVO_ASSETS");
+    char *env_assets_path = getenv(ASSETS_ENV_VARIABLE);
     if (env_assets_path != NULL) 
     {
         strAssetsPath = string(env_assets_path);

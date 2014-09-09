@@ -49,6 +49,8 @@ namespace VampireIvo {
 #define DEFAULT_VAMP_MAX_SPEED      120.0f
 #define DEFAULT_TIME_TO_LIVE        60000U      // time to survive
 
+#define ASSETS_ENV_VARIABLE "VAMPIREIVO_ASSETS" // where to look for gfx & sfx
+
 struct __player
 {
     int hits;
