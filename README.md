@@ -19,21 +19,21 @@ Just extract the `vampire_ivo-1.x.x-<Platform>.tar.gz` package and run the binar
 
 On the command line:
 
-  * Install the required packages using the package manager on your Linux distribution.
+Install the required packages using the package manager on your Linux distribution.
 
-  * Create a build folder
+Create a build folder
 
     mkdir build && cd build
 
-  * Run CMake
+Run CMake
 
     cmake -G "Unix Makefiles" ../ -DCMAKE_BUILD_TYPE:STRING=Release
 
-  * Build with:
+Build with:
 
     make
 
-  * Create an installation package with:
+Create an installation package with:
 
     cmake
 
@@ -43,21 +43,21 @@ On the command line:
 
 On the command line:
 
-  * Create a build folder
+Create a build folder
 
     mkdir build && cd build
 
-  * Set the `SDLDIR` and `SDLMIXER` environment variables.
+Set the `SDLDIR` and `SDLMIXER` environment variables.
 
-  * Run CMake
+Run CMake
 
     cmake -G "MinGW Makefiles" ../ -DCMAKE_BUILD_TYPE:STRING=Release
 
-  * Build with:
+Build with:
 
     mingw32-make
 
-  * Create an installation package with:
+Create an installation package with:
 
     cpack
 
