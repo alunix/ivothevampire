@@ -8,7 +8,12 @@ Ivo The Vampire
 
 # Installation
 
-Just extract the `vampire_ivo-1.x.x-<Platform>.tar.gz` package and run the binary.
+Extract the `vampire_ivo-1.1.0-<Platform>.tar.gz` package and run the binary.
+
+For Linux users. Make sure you've got the following installed:
+
+  * `libSDL >= 1.2.11` and `SDL_Mixer >= 1.2.12`.
+  * timidity++-2.14.0-5
 
 # Build
 
@@ -64,7 +69,7 @@ Create an installation package with:
 
     cpack
 
-## Disable Sound
+## Disable sound
 
 To build without sound & music run:
 
