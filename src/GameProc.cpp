@@ -248,14 +248,18 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
     LoadSound(string(strAssetsPath) + "sfx/Machine_Gun2.wav", true);
 
 #ifdef WITH_SDLMIXER
-    // if ( (music = FMUSIC_LoadSong( "sfx/39.mid" )) == NULL )
-    // {
-    //     LOG( "Failed to load sound - sfx/39.mid" );
-    //     g_bMusic = false;
-    // }
-    // else {
-    //     g_bMusic = true;
-    // }
+    string musicPath(string(strAssetsPath) + "sfx/39.mid");
+    if ((music = Mix_LoadMUS(musicPath.c_str())) == NULL)
+    {
+        ss.str("");
+        ss << "Failed to load music - sfx/39.mid! " 
+            << "SDL_mixer error: " << Mix_GetError();
+        LOG(ss.str());
+        g_bMusic = false;
+    }
+    else {
+        g_bMusic = true;
+    }
 #endif
 
     return (g_bRunning = true);
@@ -296,9 +300,9 @@ void FreeGame()
             sounds[i].Release();
         }
 
-        // if ( g_bMusic ) {
-        //     FMUSIC_FreeSong( music );
-        // }
+        if ( g_bMusic ) {
+            Mix_FreeMusic( music );
+        }
 
         Mix_Quit();
         LOG("SDL_mixer closed.");
@@ -336,11 +340,10 @@ void StartGameLoop()
 
     // play music
 #ifdef WITH_SDLMIXER
-    // if ( g_bMusic )
-    // {
-    //     FMUSIC_SetLooping( music, true );
-    //     FMUSIC_PlaySong( music );
-    // }
+    if ( g_bMusic )
+    {
+        Mix_PlayMusic(music, -1); //looped ? -1 : 0);
+    }
 #endif
 
     while( g_bRunning )
@@ -388,16 +391,17 @@ void StartGameLoop()
                 else if ( event.key.keysym.sym == SDLK_s )
                 {
 #ifdef WITH_SDLMIXER                    
-                    // if ( g_bMusic)
-                    // {
-                    //     if ( FMUSIC_IsPlaying(music) )
-                    //         FMUSIC_StopSong( music );
-                    //     else
-                    //     {
-                    //         FMUSIC_SetLooping( music, true );
-                    //         FMUSIC_PlaySong( music );
-                    //     }
-                    // }
+                    if ( g_bMusic)
+                    {
+                        if (Mix_PlayingMusic()) 
+                        {
+                            Mix_HaltMusic();
+                        }
+                        else
+                        {
+                            Mix_PlayMusic(music, -1);
+                        }
+                    }
 #endif                    
                 } //end KEY_s
             }
@@ -530,12 +534,11 @@ void StartGameLoop()
                 ResetGame();
 
 #ifdef WITH_SDLMIXER
-                // if ( FMUSIC_IsPlaying(music) )
-                // {
-                //     FMUSIC_StopSong( music );
-                //     FMUSIC_SetLooping( music, true );
-                //     FMUSIC_PlaySong( music );
-                // }
+                if (Mix_PlayingMusic())
+                {
+                    Mix_HaltMusic();
+                    Mix_PlayMusic(music, -1);
+                }
 #endif                
             }
             
