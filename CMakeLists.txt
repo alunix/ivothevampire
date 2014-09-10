@@ -69,9 +69,9 @@ else()
     set(SDL_LIB_NAME "SDL.dll")
     
     add_definitions(-lpthread)
-    include_directories($ENV{SDLDIR}\\include ${SDL_INCLUDE_DIR})
-    link_directories($ENV{SDLDIR}\\lib)
-    set(SDL_LIBRARY_SO $ENV{SDLDIR}\\bin\\SDL.dll)
+    include_directories($ENV{SDLDIR}/include ${SDL_INCLUDE_DIR})
+    link_directories($ENV{SDLDIR}/lib)
+    set(SDL_LIBRARY_SO $ENV{SDLDIR}/bin/SDL.dll)
     
     message(STATUS "Found libSDL.so/DLL at ${SDL_LIBRARY}")
     
@@ -110,7 +110,7 @@ else()
         else()
             include_directories($ENV{SDLMIXERDIR})
 
-            set(SDLMIXER_LIBRARY_SO $ENV{SDLMIXERDIR}\\SDL_mixer.dll)
+            set(SDLMIXER_LIBRARY_SO $ENV{SDLMIXERDIR}/SDL_mixer.dll)
 
             # copy the SDL_Mixer DLL file to the install dir
             add_custom_command(TARGET vampire_ivo POST_BUILD
@@ -167,14 +167,10 @@ configure_file (
 INSTALL(TARGETS vampire_ivo RUNTIME DESTINATION ${INSTALL_DIR})
 ###INSTALL(PROGRAMS "${CMAKE_CURRENT_SOURCE_DIR}/run.sh" DESTINATION ${INSTALL_DIR})
 INSTALL(FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/README.md"
     "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE"
     DESTINATION ${INSTALL_DIR})
 INSTALL(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/assets/" DESTINATION ${INSTALL_DIR})
-#INSTALL(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
-#    DESTINATION ${INSTALL_DIR}
-#    PATTERN "debug.html" EXCLUDE
-#    PATTERN "pref" EXCLUDE)
+INSTALL(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/licenses/" DESTINATION ${INSTALL_DIR})
     
 ### build a CPack driven installer package
 include (InstallRequiredSystemLibraries)
@@ -209,14 +205,6 @@ if (${CPACK_GENERATOR} STREQUAL "DEB")
 endif()
 
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
-set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
-#set(CPACK_INSTALLED_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/bin;/.")
-#set(CPACK_IGNORE_FILES 
-#"~$"
-#"^.*/.git/"
-#"^${PROJECT_SOURCE_DIR}/bin/pref"
-#"^${PROJECT_SOURCE_DIR}/bin/debug.html"
-#)
 set(CPACK_PACKAGE_EXECUTABLES "vampire_ivo" "Vampire Ivo Game")
 
 include (CPack)

@@ -2,9 +2,9 @@
 *.log
 *.exe
 .netrc
+Config.h
+
 lib/*
 debug/
 __Exec/
 _bin/*
-
-Config.h
