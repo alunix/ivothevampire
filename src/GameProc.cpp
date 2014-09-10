@@ -86,7 +86,9 @@ Mix_Music     *music = NULL;
     
 bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*= false*/ )
 {
-    
+    char temp[255]  = { 0 };
+    stringstream ss;
+
     OpenLog();
 
     //----- init video
@@ -107,9 +109,18 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
     g_screenwidth = screen_width;
     g_screenheight = screen_height;
 
+    //----- init SDL
+    
+    LOG("Initializing SDL video ..." );
+
+    // get video capabilities
+    
+    SDL_VideoDriverName(temp, 255);
+    ss << "Using video driver: " << temp;
+    LOG(ss.str());
+
     Uint32 flags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_ANYFORMAT;
 
-    //----- init SDL
     if ( bFullscreen )
     {
         flags |= SDL_FULLSCREEN;
@@ -143,7 +154,7 @@ bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*
 
     LOG("Initializing SDL_mixer ..." );
 
-    stringstream ss;
+    ss.str("");
 
     if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
     {
