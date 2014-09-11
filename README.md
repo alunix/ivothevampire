@@ -43,7 +43,7 @@ Build with:
 
 Create an installation package with:
 
-    cmake
+    cpack
 
 ## Windows
 
