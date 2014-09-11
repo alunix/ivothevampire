@@ -43,7 +43,7 @@ extern CSprite        *g_pMouse;
 
 CVampires::CVampires()
 {
-
+    // Leer
 }
 
 
@@ -82,10 +82,8 @@ void CVampires::Destroy()
 
 bool CVampires::CreateVampire( CSprite *pSpriteFly, CSprite *pSpriteDie )
 {
-
     try
     {
-
         CVampire *pVampire = new CVampire();
         
         // setup vampire
@@ -164,7 +162,6 @@ bool CVampires::CreateVampire( CSprite *pSpriteFly, CSprite *pSpriteDie )
 
 void CVampires::Update( SDL_Surface *pScreen, float *mpf )
 {
-
     CVampire *pv = NULL;
 
     vector<CVampire*>::iterator it_begin = m_vampires.begin();
@@ -316,7 +313,6 @@ void CVampires::Update( SDL_Surface *pScreen, float *mpf )
 
 int CVampires::CheckHit( int mx, int my, int mw, int mh )
 {
-
     //if ( m_vampires.size() < 1 )
     //  return false;
     int kills = 0;

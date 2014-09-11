@@ -84,8 +84,11 @@ Mix_Music     *music = NULL;
 
 
     
-bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen /*= false*/ )
+bool InitGame( int screen_width, int screen_height, int bpp, 
+    bool bFullscreen /*= false*/, bool bShowFPS /*= false*/ )
 {
+    g_bShowFps = bShowFPS;
+
     char temp[255]  = { 0 };
     stringstream ss;
 

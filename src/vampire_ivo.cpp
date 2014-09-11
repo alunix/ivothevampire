@@ -51,8 +51,31 @@ int main(int argc, char* argv[])
 #else
   _putenv("SDL_VIDEO_CENTERED=1");
 #endif
+
+    bool bFullscreen = false;
+    bool bShowFPS = false;
+
+    if (argc > 1) {
+        for (int i = 1; i < argc; i++) 
+        {
+            if (!strncmp(argv[i], "-fps", 4)) 
+            {
+                bShowFPS = true;
+                continue;
+            }
+            else if (!strncmp(argv[i], "-force-fullscreen", 17)
+              || !strncmp(argv[i], "-fullscreen", 11)) 
+            {
+                bFullscreen = true;
+                continue;
+            }
+
+            perror("Unknown command line parameter passed!");
+            exit(0);
+        }
+    }    
   
-    if (!VampireIvo::InitGame(800, 600, 16, false)) {
+    if (!VampireIvo::InitGame(800, 600, 16, bFullscreen, bShowFPS)) {
         return -1;
     }
 

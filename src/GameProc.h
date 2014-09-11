@@ -105,7 +105,8 @@ enum
 
 
 //--- game functions
-bool InitGame( int screen_width, int screen_height, int bpp, bool bFullscreen = false );
+bool InitGame( int screen_width, int screen_height, int bpp, 
+    bool bFullscreen = false, bool bShowFPS = false );
 void FreeGame();
 void StartGameLoop();
 void UpdateFrame();
