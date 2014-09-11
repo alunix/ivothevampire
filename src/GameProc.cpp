@@ -260,7 +260,8 @@ bool InitGame( int screen_width, int screen_height, int bpp,
         LOG(ss.str());
         g_bMusic = false;
     }
-    else {
+    else 
+    {
         g_bMusic = true;
     }
 #endif
