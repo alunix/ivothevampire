@@ -28,7 +28,7 @@ THE SOFTWARE.
 
   "Ivo the Vampire" - shoot'em up game
 
-  greetings from the Pi-Conuslt.bg team - 03.2005
+  greetings from the Pi-Consult.bg team - 03.2005
 
 
   beta release: 21.03.2005

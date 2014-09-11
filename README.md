@@ -1,4 +1,4 @@
-Ivo The Vampire
+Ivo the Vampire
 ================
 
 2D Shoot 'Em Up game coded w/h libSDL & C/C++
@@ -47,7 +47,7 @@ Create an installation package with:
 
 ## Windows
 
-  * [Install](lib/README.md) the required Windows binaries in lib.
+  * Install the required Windows dependencies in [lib](lib/README.md).
 
 On the command line:
 
