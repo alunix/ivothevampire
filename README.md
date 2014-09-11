@@ -1,7 +1,7 @@
 Ivo The Vampire
 ================
 
-2D Shoot 'Em Up game using SDL & C/C++
+2D Shoot 'Em Up game coded w/h libSDL & C/C++
 
 ![alt text](http://i.imgur.com/ZUwPZPr.png "Title screen")
 
@@ -12,8 +12,8 @@ Extract the `vampire_ivo-1.1.0-<Platform>.tar.gz` package and run the binary.
 
 For Linux users. Make sure you've got the following installed:
 
-  * `libSDL >= 1.2.11` and `SDL_Mixer >= 1.2.12`.
-  * timidity++-2.14.0-5
+  * `libSDL >= 1.2.11` and `SDL_Mixer >= 1.2.12`
+  * (Optional for music support) `timidity++-2.14.0-5` and `timidity-freepats`
 
 # Build
 
